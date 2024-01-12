@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Etch-a-Sketch</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <div class="body">
+            <div class="options">
+                <div class="size">
+                    <label for="grid-size">Size</label>
+                    <div class="slider">
+                        <input type="range" id="grid-size" name="input" min="1" max="100", step="1">
+                        <p>16 x 16</p>
+                    </div>
+                </div>
+                <div class="color">
+                    <label for="color-picker">Color</label>
+                    <input type="color" id="color-picker" name="name" value="#000000">
+                </div>
+            </div>
+            <div class="container"></div>
+        </div>
+    </body>
+</html>
