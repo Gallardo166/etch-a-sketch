@@ -1,9 +1,70 @@
-const container = document.querySelector("div.container")
+const container = document.querySelector("div.container");
+const input = document.querySelector("input");
+const p = document.querySelector("p");
+const colorPicker = document.querySelector("input#color-picker");
+const greyscale = document.querySelector("#greyscale");
+const eraser = document.querySelector("#eraser");
 
 let rows = [];
-createGrid(16);
-
 let isMouseDown;
+let color = colorPicker.value;
+let greyscaleOn = false;
+let eraserOn = false;
+let colorPickerOn = true;
+
+input.addEventListener("input", changeGrid);
+colorPicker.style.backgroundColor = "#858282";
+
+eraser.addEventListener("click", () => {
+    eraserOn = !eraserOn;
+    if (eraserOn) {
+        eraser.style.backgroundColor = "#858282";
+        colorPicker.style.backgroundColor = "#efefef"
+        greyscale.style.backgroundColor = "#efefef";
+    } else if (!eraserOn) {
+        colorPicker.style.backgroundColor = "#858282";
+        eraser.style.backgroundColor = "#efefef"
+        greyscale.style.backgroundColor = "#efefef";
+    }
+    if (greyscaleOn) {
+        greyscaleOn = !greyscaleOn;
+    };
+    if (colorPickerOn) {
+        colorPickerOn = !colorPickerOn;
+    };
+});
+
+colorPicker.addEventListener("click", () => {
+    if (eraserOn) {
+        eraserOn = !eraserOn;
+    };
+    if (greyscaleOn) {
+        greyscaleOn = !greyscaleOn;
+    };
+    colorPicker.style.backgroundColor = "#858282";
+    eraser.style.backgroundColor = "#efefef"
+    greyscale.style.backgroundColor = "#efefef";
+});
+
+greyscale.addEventListener("click", () => {
+    greyscaleOn = !greyscaleOn;
+    if (greyscaleOn) {
+        greyscale.style.backgroundColor = "#858282";
+        colorPicker.style.backgroundColor = "#efefef"
+        eraser.style.backgroundColor = "#efefef";
+    } else if (!eraserOn) {
+        colorPicker.style.backgroundColor = "#858282";
+        eraser.style.backgroundColor = "#efefef"
+        greyscale.style.backgroundColor = "#efefef";
+    }
+    if (eraserOn) {
+        eraserOn = !eraserOn;
+    };
+    if (colorPickerOn) {
+        colorPickerOn = !colorPickerOn;
+    };
+});
+
 container.addEventListener("mousedown", (e) => {
     e.preventDefault();
     isMouseDown = true;
@@ -11,11 +72,6 @@ container.addEventListener("mousedown", (e) => {
 container.addEventListener("mouseup", () => {
     isMouseDown = false;
 });
-
-
-const colorPicker = document.querySelector("input#color-picker");
-colorPicker.style.backgroundColor = "#858282"
-let color = colorPicker.value;
 
 function createGrid(size) {
     for (i=0; i<size; i++) {
@@ -77,69 +133,11 @@ function removeGrid() {
     };
 };
 
-input = document.querySelector("input")
-input.addEventListener("input", changeGrid);
-
-const p = document.querySelector("p");
-
 function changeGrid(e) {
     let size = e.target.value;
     removeGrid();
     createGrid(size);
     p.textContent = `${size} x ${size}`;
 };
-const greyscale = document.querySelector("#greyscale");
-const eraser = document.querySelector("#eraser");
-let greyscaleOn = false;
-let eraserOn = false;
-let colorPickerOn = true;
 
-eraser.addEventListener("click", () => {
-    eraserOn = !eraserOn;
-    if (eraserOn) {
-        eraser.style.backgroundColor = "#858282";
-        colorPicker.style.backgroundColor = "#efefef"
-        greyscale.style.backgroundColor = "#efefef";
-    } else if (!eraserOn) {
-        colorPicker.style.backgroundColor = "#858282";
-        eraser.style.backgroundColor = "#efefef"
-        greyscale.style.backgroundColor = "#efefef";
-    }
-    if (greyscaleOn) {
-        greyscaleOn = !greyscaleOn;
-    };
-    if (colorPickerOn) {
-        colorPickerOn = !colorPickerOn;
-    };
-});
-
-colorPicker.addEventListener("click", () => {
-    if (eraserOn) {
-        eraserOn = !eraserOn;
-    };
-    if (greyscaleOn) {
-        greyscaleOn = !greyscaleOn;
-    };
-    colorPicker.style.backgroundColor = "#858282";
-    eraser.style.backgroundColor = "#efefef"
-    greyscale.style.backgroundColor = "#efefef";
-});
-
-greyscale.addEventListener("click", () => {
-    greyscaleOn = !greyscaleOn;
-    if (greyscaleOn) {
-        greyscale.style.backgroundColor = "#858282";
-        colorPicker.style.backgroundColor = "#efefef"
-        eraser.style.backgroundColor = "#efefef";
-    } else if (!eraserOn) {
-        colorPicker.style.backgroundColor = "#858282";
-        eraser.style.backgroundColor = "#efefef"
-        greyscale.style.backgroundColor = "#efefef";
-    }
-    if (eraserOn) {
-        eraserOn = !eraserOn;
-    };
-    if (colorPickerOn) {
-        colorPickerOn = !colorPickerOn;
-    };
-});
+createGrid(16);
